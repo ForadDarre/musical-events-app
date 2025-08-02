@@ -2,21 +2,22 @@ import React from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
-import { Dayjs } from "dayjs";
 import { EventContentArg } from "@fullcalendar/core/index.js";
 
 interface DataProps {
-    selectedDate: Dayjs | null;
+    selectedDate: Date | null;
     changeSelectedDate: Function;
+    setOpen: Function;
 }
 
 const events = [{ title: "Meeting", start: new Date() }];
 
 function CalendarPicker(props: DataProps) {
-    const { selectedDate, changeSelectedDate } = props;
+    const { selectedDate, changeSelectedDate, setOpen } = props;
 
     const handleDateClick = (arg: DateClickArg) => {
-        console.log("Date clicked:", arg.dateStr);
+        changeSelectedDate(arg.date);
+        setOpen(true);
     };
 
     const renderEventContent = (eventInfo: EventContentArg) => {

@@ -3,12 +3,19 @@
 import { useState, useEffect } from "react";
 import "react-calendar/dist/Calendar.css";
 import CalendarPicker from "./components/CalendarPicker";
-import { Dayjs } from "dayjs";
+import AddEventModal from "./components/AddEventModal";
 
 export default function HomePage() {
-    const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
+    const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+    const [open, setOpen] = useState<boolean>(false);
 
-    const changeSelectedDate = (newValue: Dayjs | null): void => {
+    const handleClose = () => setOpen(false);
+
+    const openModal = () => {
+        setOpen(true);
+    };
+
+    const changeSelectedDate = (newValue: Date | null): void => {
         setSelectedDate(newValue);
     };
 
@@ -17,7 +24,9 @@ export default function HomePage() {
             <CalendarPicker
                 selectedDate={selectedDate}
                 changeSelectedDate={changeSelectedDate}
+                setOpen={openModal}
             />
+            <AddEventModal open={open} onClose={handleClose} />
         </div>
     );
 }
