@@ -3,17 +3,17 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import { EventContentArg } from "@fullcalendar/core/index.js";
+import { MusicalEvent } from "../../types/types";
 
 interface DataProps {
+    events: MusicalEvent[];
     selectedDate: Date | null;
     changeSelectedDate: Function;
     setOpen: Function;
 }
 
-const events = [{ title: "Meeting", start: new Date() }];
-
 function CalendarPicker(props: DataProps) {
-    const { selectedDate, changeSelectedDate, setOpen } = props;
+    const { events, selectedDate, changeSelectedDate, setOpen } = props;
 
     const handleDateClick = (arg: DateClickArg) => {
         changeSelectedDate(arg.date);
