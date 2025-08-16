@@ -37,8 +37,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 TODO:
 
--   Change MusicalEventInput to MusicalEvent
--   Remove TimeOfDay everywhere (DB -> BE -> FE) - it should be included in the Date
 -   Allow clicking/modifying of existing events
 -   Clear Modal fields on Modal close
 -   Add styles to the events page

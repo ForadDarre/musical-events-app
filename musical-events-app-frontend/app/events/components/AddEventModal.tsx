@@ -23,38 +23,32 @@ import {
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";
 import { useTheme } from "@mui/material/styles";
-
-type MusicalEventInput = {
-    title: string;
-    date: Date;
-    timeOfDay: string; // "HH:mm"
-    todos: string[];
-};
+import { MusicalEvent } from "../../types/types";
 
 interface AddEventModalProps {
     open: boolean;
     onClose: () => void;
-    onSubmit: (data: MusicalEventInput) => void;
-    initial?: Partial<MusicalEventInput>;
+    onSubmit: (data: MusicalEvent) => void;
+    initial: MusicalEvent | null;
 }
 
 const AddEventModal: React.FC<AddEventModalProps> = ({
     open,
     onClose,
     onSubmit,
-    initial = {},
+    initial,
 }) => {
     const theme = useTheme();
     const isSmDown = useMediaQuery(theme.breakpoints.down("sm"));
 
-    const [title, setTitle] = useState<string>(initial.title || "");
+    const [title, setTitle] = useState<string>(initial?.title || "");
     const [date, setDate] = useState<Dayjs | null>(
-        initial.date ? dayjs(initial.date) : dayjs()
+        initial?.date ? dayjs(initial.date) : dayjs()
     );
     const [timeOfDay, setTimeOfDay] = useState<Dayjs | null>(
-        initial.timeOfDay ? dayjs(`1970-01-01T${initial.timeOfDay}`) : dayjs()
+        initial?.timeOfDay ? dayjs(`1970-01-01T${initial.timeOfDay}`) : dayjs()
     );
-    const [todos, setTodos] = useState<string[]>(initial.todos || [""]);
+    const [todos, setTodos] = useState<string[]>(initial?.todos || []);
     const [errors, setErrors] = useState<{
         title?: string;
         date?: string;
@@ -62,19 +56,16 @@ const AddEventModal: React.FC<AddEventModalProps> = ({
         todos?: string;
     }>({});
 
-    // useEffect(() => {
-    //     if (open) {
-    //         setTitle(initial.title || "");
-    //         setDate(initial.date ? dayjs(initial.date) : dayjs());
-    //         setTimeOfDay(
-    //             initial.timeOfDay
-    //                 ? dayjs(`1970-01-01T${initial.timeOfDay}`)
-    //                 : dayjs()
-    //         );
-    //         setTodos(initial.todos?.length ? initial.todos : [""]);
-    //         setErrors({});
-    //     }
-    // }, [open, initial]);
+    useEffect(() => {
+        setTitle(initial?.title || "");
+        setDate(initial?.date ? dayjs(initial.date) : dayjs());
+        setTimeOfDay(
+            initial?.timeOfDay
+                ? dayjs(`1970-01-01T${initial.timeOfDay}`)
+                : dayjs()
+        );
+        setTodos(initial?.todos || []);
+    }, [initial]);
 
     const validate = (): boolean => {
         const newErrors: typeof errors = {};
@@ -132,6 +123,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({
                 }}
             >
                 <Typography variant="h6" component="div">
+                    <>{console.log(initial?.date)}</>
                     Create Musical Event
                 </Typography>
                 <IconButton onClick={onClose} aria-label="close" size="small">
@@ -184,6 +176,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({
                                     slotProps={{
                                         textField: { fullWidth: true },
                                     }}
+                                    ampm={false}
                                 />
                                 {errors.timeOfDay && (
                                     <FormHelperText error>
