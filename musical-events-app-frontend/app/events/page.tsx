@@ -27,13 +27,11 @@ export default function HomePage() {
                     "http://localhost:4000/api/events/all"
                 );
                 const eventDtos: MusicalEventDto[] = res.data;
-                console.log(eventDtos);
 
                 const newEvents: MusicalEvent[] = eventDtos.map((e) =>
                     musicalEventDtoToMusicalEvent(e)
                 );
 
-                console.log(newEvents);
                 setEvents(newEvents);
             } catch (err) {
                 console.error("Error fetching events:", err);
@@ -66,6 +64,11 @@ export default function HomePage() {
         }
     };
 
+    const changeSelectedEvent = (newValue: MusicalEvent): void => {
+        setSelectedEvent(newValue);
+        setOpen(true);
+    };
+
     const onSubmit = async (eventToAdd: MusicalEvent): Promise<void> => {
         const eventToAddDto: MusicalEventDto =
             musicalEventToMusicalEventDto(eventToAdd);
@@ -78,6 +81,7 @@ export default function HomePage() {
                 events={events}
                 selectedDate={selectedDate}
                 changeSelectedDate={changeSelectedDate}
+                changeSelectedEvent={changeSelectedEvent}
                 setOpen={openModal}
             />
             <AddEventModal

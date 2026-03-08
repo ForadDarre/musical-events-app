@@ -42,3 +42,4 @@ TODO:
 -   Add styles to the events page
 -   Change main page to the login page
 -   Add PWE
+-   Extract API calls into a separate document

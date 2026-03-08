@@ -1,3 +1,4 @@
+import { EventClickArg } from "@fullcalendar/core/index.js";
 import { MusicalEventDto } from "../types/DTOs";
 import { MusicalEvent } from "../types/types";
 
@@ -40,4 +41,18 @@ export const musicalEventToMusicalEventDto = (
     };
 
     return dto;
+};
+
+export const calendarEventToMusicalEvent = (
+    arg: EventClickArg
+): MusicalEvent => {
+    const eventToUpdate: MusicalEvent = {
+        id: arg.event.id,
+        timeOfDay: arg.event.extendedProps.timeOfDay,
+        todos: arg.event.extendedProps.todos,
+        title: arg.event.title,
+        date: arg.event.start ?? new Date(),
+    };
+
+    return eventToUpdate;
 };

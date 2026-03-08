@@ -123,7 +123,6 @@ const AddEventModal: React.FC<AddEventModalProps> = ({
                 }}
             >
                 <Typography variant="h6" component="div">
-                    <>{console.log(initial?.date)}</>
                     Create Musical Event
                 </Typography>
                 <IconButton onClick={onClose} aria-label="close" size="small">
