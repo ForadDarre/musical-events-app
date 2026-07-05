@@ -4,4 +4,10 @@ export interface MusicalEvent {
     date: Date;
     timeOfDay: string;
     todos: string[];
+    userId?: string;
+}
+
+export interface User {
+    id: string;
+    email: string;
 }

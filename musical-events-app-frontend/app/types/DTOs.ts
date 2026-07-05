@@ -3,4 +3,5 @@ export interface MusicalEventDto {
     title: string;
     date: Date;
     todos: string[];
+    userId: string;
 }

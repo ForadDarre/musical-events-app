@@ -3,7 +3,7 @@ import { MusicalEventDto } from "../types/DTOs";
 import { MusicalEvent } from "../types/types";
 
 export const musicalEventDtoToMusicalEvent = (
-    dto: MusicalEventDto
+    dto: MusicalEventDto,
 ): MusicalEvent => {
     const date = new Date(dto.date);
 
@@ -22,7 +22,7 @@ export const musicalEventDtoToMusicalEvent = (
 };
 
 export const musicalEventToMusicalEventDto = (
-    event: MusicalEvent
+    event: MusicalEvent,
 ): MusicalEventDto => {
     const date = new Date(event.date);
 
@@ -38,13 +38,14 @@ export const musicalEventToMusicalEventDto = (
         title: event.title,
         date,
         todos: event.todos,
+        userId: event.userId!,
     };
 
     return dto;
 };
 
 export const calendarEventToMusicalEvent = (
-    arg: EventClickArg
+    arg: EventClickArg,
 ): MusicalEvent => {
     const eventToUpdate: MusicalEvent = {
         id: arg.event.id,
@@ -52,6 +53,7 @@ export const calendarEventToMusicalEvent = (
         todos: arg.event.extendedProps.todos,
         title: arg.event.title,
         date: arg.event.start ?? new Date(),
+        userId: arg.event.extendedProps.userId,
     };
 
     return eventToUpdate;

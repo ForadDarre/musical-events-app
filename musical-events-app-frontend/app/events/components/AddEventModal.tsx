@@ -43,10 +43,10 @@ const AddEventModal: React.FC<AddEventModalProps> = ({
 
     const [title, setTitle] = useState<string>(initial?.title || "");
     const [date, setDate] = useState<Dayjs | null>(
-        initial?.date ? dayjs(initial.date) : dayjs()
+        initial?.date ? dayjs(initial.date) : dayjs(),
     );
     const [timeOfDay, setTimeOfDay] = useState<Dayjs | null>(
-        initial?.timeOfDay ? dayjs(`1970-01-01T${initial.timeOfDay}`) : dayjs()
+        initial?.timeOfDay ? dayjs(`1970-01-01T${initial.timeOfDay}`) : dayjs(),
     );
     const [todos, setTodos] = useState<string[]>(initial?.todos || []);
     const [errors, setErrors] = useState<{
@@ -62,7 +62,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({
         setTimeOfDay(
             initial?.timeOfDay
                 ? dayjs(`1970-01-01T${initial.timeOfDay}`)
-                : dayjs()
+                : dayjs(),
         );
         setTodos(initial?.todos || []);
     }, [initial]);
@@ -97,6 +97,8 @@ const AddEventModal: React.FC<AddEventModalProps> = ({
         if (!validate()) return;
         if (!date || !timeOfDay) return;
         onSubmit({
+            id: initial?.id,
+            userId: initial?.userId,
             title: title.trim(),
             date: date.toDate(),
             timeOfDay: timeOfDay.format("HH:mm"),
@@ -120,12 +122,22 @@ const AddEventModal: React.FC<AddEventModalProps> = ({
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
+                    bgcolor: "#264653",
+                    color: "#ffffff",
                 }}
             >
                 <Typography variant="h6" component="div">
-                    Create Musical Event
+                    {initial?.id
+                        ? "Edit musical event"
+                        : "Create musical event"}
                 </Typography>
-                <IconButton onClick={onClose} aria-label="close" size="small">
+
+                <IconButton
+                    onClick={onClose}
+                    aria-label="close"
+                    size="small"
+                    sx={{ color: "#ffffff" }}
+                >
                     <Close />
                 </IconButton>
             </DialogTitle>
@@ -199,6 +211,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({
                                 startIcon={<Add />}
                                 onClick={addTodo}
                                 aria-label="add todo"
+                                sx={{ color: "#264653" }}
                             >
                                 Add
                             </Button>
@@ -224,7 +237,6 @@ const AddEventModal: React.FC<AddEventModalProps> = ({
                                     size="small"
                                     aria-label={`remove todo ${idx + 1}`}
                                     onClick={() => removeTodo(idx)}
-                                    disabled={todos.length === 1}
                                 >
                                     <Delete fontSize="small" />
                                 </IconButton>
@@ -240,10 +252,32 @@ const AddEventModal: React.FC<AddEventModalProps> = ({
             </DialogContent>
 
             <DialogActions sx={{ px: 2, pb: 2 }}>
-                <Button onClick={onClose} variant="outlined">
+                <Button
+                    onClick={onClose}
+                    variant="outlined"
+                    sx={{
+                        borderColor: "#264653",
+                        color: "#264653",
+                        "&:hover": {
+                            bgcolor: "#264653",
+                            borderColor: "#264653",
+                            color: "#ffffff",
+                        },
+                    }}
+                >
                     Cancel
                 </Button>
-                <Button onClick={handleSubmit} variant="contained">
+                <Button
+                    onClick={handleSubmit}
+                    variant="contained"
+                    sx={{
+                        bgcolor: "#6ec475",
+                        color: "#264653",
+                        "&:hover": {
+                            bgcolor: "#5bb964",
+                        },
+                    }}
+                >
                     Save Event
                 </Button>
             </DialogActions>

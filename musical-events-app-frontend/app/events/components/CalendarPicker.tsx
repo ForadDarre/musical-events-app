@@ -42,7 +42,7 @@ function CalendarPicker(props: DataProps) {
     };
 
     return (
-        <div>
+        <div className="full-calendar-wrapper">
             <FullCalendar
                 plugins={[dayGridPlugin, interactionPlugin]}
                 initialView="dayGridMonth"
@@ -51,6 +51,14 @@ function CalendarPicker(props: DataProps) {
                 eventContent={renderEventContent}
                 dateClick={handleDateClick}
                 eventClick={onEventChange}
+                headerToolbar={{
+                    start: "title",
+                    center: "",
+                    end: "prev,next today",
+                }}
+                height="auto"
+                eventBackgroundColor="#6ec475"
+                eventBorderColor="#264653"
             />
         </div>
     );

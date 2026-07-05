@@ -1,3 +1,5 @@
+import "./globals.css";
+
 export const metadata = {
     title: "Musical Events",
     description: "Plan your musical days!",
@@ -10,7 +12,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-            <body style={{ fontFamily: "Arial, sans-serif", padding: "2rem" }}>
+            <body className="min-h-screen bg-white text-[#264653] antialiased">
                 {children}
             </body>
         </html>
